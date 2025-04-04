@@ -1,19 +1,12 @@
 package `in`.dunder.celeris.frontend
 
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import `in`.dunder.celeris.db.DatabaseHelper
-import `in`.dunder.celeris.utils.QRCodeUtils
 
 class MainActivity : AppCompatActivity() {
-    private var dbHelper: DatabaseHelper? = null
-    private var qrCodeImageView: ImageView? = null
-    private val merchantId = "13"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,15 +19,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        dbHelper = DatabaseHelper(this)
-        qrCodeImageView = findViewById(R.id.qr_code_image_view)
-
-        var qrCode: Bitmap? = dbHelper?.getQRCode(merchantId)
-        if (qrCode == null) {
-            qrCode = QRCodeUtils.generateQRCode(merchantId)
-            dbHelper?.saveQRCode(merchantId, qrCode)
+        // Load the ProfilePage fragment
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ProfilePage())
+                .commit()
         }
-
-        qrCodeImageView?.setImageBitmap(qrCode)
     }
 }
