@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import `in`.dunder.celeris.db.DatabaseHelper
+import `in`.dunder.celeris.frontend.databinding.FragmentProfilePageBinding
 import `in`.dunder.celeris.utils.QRCodeUtils
 
 class ProfilePage : Fragment() {
+    private lateinit var binding: FragmentProfilePageBinding
     private var dbHelper: DatabaseHelper? = null
     private var qrCodeImageView: ImageView? = null
     private val merchantId = "13"
@@ -19,8 +21,9 @@ class ProfilePage : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentProfilePageBinding.inflate(layoutInflater, container, false)
         dbHelper = DatabaseHelper(requireActivity())
-        qrCodeImageView = findViewById(R.id.qr_code_image_view)
+        qrCodeImageView = binding.qrCode
 
         var qrCode: Bitmap? = dbHelper?.getQRCode(merchantId)
         if (qrCode == null) {
@@ -30,8 +33,6 @@ class ProfilePage : Fragment() {
 
         qrCodeImageView?.setImageBitmap(qrCode)
 
-
-
-        return inflater.inflate(R.layout.fragment_profile_page, container, false)
+        return binding.root
     }
 }
