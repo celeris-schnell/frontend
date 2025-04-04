@@ -1,5 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.Frontend" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:textViewStyle">@style/AppTextViewStyle</item>
+    </style>
+
+    <style name="AppTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/inter</item>
     </style>
 
     <style name="Theme.Frontend" parent="Base.Theme.Frontend" />
