@@ -1,6 +1,7 @@
 package `in`.dunder.celeris.frontend
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.ImageFormat
 import android.os.Bundle
@@ -18,11 +19,22 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.camera.view.PreviewView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.zxing.BinaryBitmap
 import com.google.zxing.MultiFormatReader
 import com.google.zxing.Result
 import com.google.zxing.common.HybridBinarizer
 import com.google.zxing.PlanarYUVLuminanceSource
+import kotlinx.coroutines.launch
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "app_preferences")
 
 // Extension function to convert ImageProxy to ZXing's PlanarYUVLuminanceSource.
 private fun ImageProxy.toLuminanceSource(): PlanarYUVLuminanceSource? {
@@ -134,9 +146,23 @@ class ScanPayFragment : Fragment() {
                 .build()
                 .also { it.setAnalyzer(ContextCompat.getMainExecutor(requireContext()), QRCodeAnalyzer { qrResult ->
                     requireActivity().runOnUiThread {
-                        Toast.makeText(requireContext(), "Scanned QR Code: $qrResult", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Scanned QR Code: $qrResult",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                        lifecycleScope.launch {
+                            saveClientIdToDataStore(qrResult)
+
+//                            findNavController().navigate(R.id.action_scanPayFragment_to_sendMoney)
+                            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                                .navigate(R.id.action_scanPayFragment_to_sendMoney)
+                        }
                     }
                 }) }
+
+
 
             try {
                 // Bind use cases to lifecycle.
@@ -151,6 +177,14 @@ class ScanPayFragment : Fragment() {
             }
         }, ContextCompat.getMainExecutor(requireContext()))
     }
+
+    private suspend fun saveClientIdToDataStore(clientId: String) {
+        val clientIdKey = stringPreferencesKey("client_id")
+        requireContext().dataStore.edit { preferences ->
+            preferences[clientIdKey] = clientId
+        }
+    }
+
 
     private class QRCodeAnalyzer(private val onQRCodeScanned: (String) -> Unit) : ImageAnalysis.Analyzer {
 
@@ -172,3 +206,7 @@ class ScanPayFragment : Fragment() {
         }
     }
 }
+
+
+
+
