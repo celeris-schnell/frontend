@@ -6,19 +6,16 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var networkStatusText: TextView
     private lateinit var connectivityManager: ConnectivityManager
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Initialize TextView
-        networkStatusText = findViewById(R.id.statusTextView)
 
         // Initialize ConnectivityManager
         connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -40,6 +37,12 @@ class MainActivity : AppCompatActivity() {
 
         // Check initial network status
         checkNetworkStatus()
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ReceivePage())
+                .commit()
+        }
     }
 
     override fun onResume() {
@@ -65,6 +68,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateNetworkStatus(isConnected: Boolean) {
-        networkStatusText.text = if (isConnected) "You are online" else "You are offline"
+        Log.d("Network:", if (isConnected) "You are online" else "You are offline")
     }
 }
