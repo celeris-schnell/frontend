@@ -1,7 +1,6 @@
 [versions]
 agp = "8.9.1"
-core = "3.4.1"
-dotlottieAndroid = "0.0.3"
+core = "3.5.2"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -18,7 +17,6 @@ navigationUiKtx = "2.8.9"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 core = { module = "com.google.zxing:core", version.ref = "core" }
-dotlottie-android = { module = "com.github.LottieFiles:dotlottie-android", version.ref = "dotlottieAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
