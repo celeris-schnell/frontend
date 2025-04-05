@@ -8,12 +8,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import `in`.dunder.celeris.db.AuthDatabaseHelper
+import `in`.dunder.celeris.frontend.R
 import `in`.dunder.celeris.frontend.databinding.ActivitySecureBinding
 import `in`.dunder.celeris.utils.NetworkMonitor
+import androidx.navigation.NavController
+import android.view.View
+import android.graphics.Color
 
 class SecureActivity : AppCompatActivity() {
     private lateinit var networkMonitor: NetworkMonitor
     private lateinit var binding: ActivitySecureBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +36,34 @@ class SecureActivity : AppCompatActivity() {
         // Set up Navigation
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
+        // Setup bottom navigation clicks
+        binding.homeButton.setOnClickListener {
+            if (navController.currentDestination?.id != R.id.homePage) {
+                navController.navigate(R.id.homePage)
+                updateBottomBarSelection(true)
+            }
+        }
+
+        binding.profileButton.setOnClickListener {
+            if (navController.currentDestination?.id != R.id.profilePage) {
+                navController.navigate(R.id.profilePage)
+                updateBottomBarSelection(false)
+            }
+        }
+
+        // Set initial selection
+        updateBottomBarSelection(navController.currentDestination?.id == R.id.homePage)
+
+        // Check authentication
         AuthDatabaseHelper(this).apply {
             if (!isUserLoggedIn()) {
                 finish()
             }
         }
 
+        // Setup network monitoring
         networkMonitor = NetworkMonitor(this@SecureActivity) { isOnline, justCameOnline ->
             runOnUiThread {
                 if (justCameOnline) {
@@ -45,6 +71,28 @@ class SecureActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // Set up navigation listener to update bottom bar
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            updateBottomBarSelection(destination.id == R.id.homePage)
+        }
+    }
+
+    private fun updateBottomBarSelection(isHomeSelected: Boolean) {
+        // Update icons and text colors
+        binding.homeIcon.setColorFilter(
+            if (isHomeSelected) getColor(R.color.primary) else getColor(R.color.text_primary)
+        )
+        binding.profileIcon.setColorFilter(
+            if (!isHomeSelected) getColor(R.color.primary) else getColor(R.color.text_primary)
+        )
+
+        binding.homeText.setTextColor(
+            if (isHomeSelected) getColor(R.color.primary) else getColor(R.color.text_primary)
+        )
+        binding.profileText.setTextColor(
+            if (!isHomeSelected) getColor(R.color.primary) else getColor(R.color.text_primary)
+        )
     }
 
     override fun onResume() {
