@@ -60,7 +60,7 @@ class SignUp : Fragment() {
 
                         if (res != null) {
                             val dbHelper = AuthDatabaseHelper(context)
-                            dbHelper.insertUser(
+                            dbHelper.saveUser(
                                 res.user_id,
                                 binding.name.text.toString(),
                                 0,
