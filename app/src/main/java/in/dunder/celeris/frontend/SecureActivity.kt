@@ -6,7 +6,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.fragment.NavHostFragment
 import `in`.dunder.celeris.db.AuthDatabaseHelper
 import `in`.dunder.celeris.frontend.databinding.ActivitySecureBinding
 import `in`.dunder.celeris.utils.NetworkMonitor

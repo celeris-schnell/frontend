@@ -28,6 +28,12 @@ class ProfilePage : Fragment() {
         dbHelper = DatabaseHelper(requireActivity())
         authDbHelper = AuthDatabaseHelper(requireActivity()) // Initialize AuthDatabaseHelper
         qrCodeImageView = binding.qrCode
+        AuthDatabaseHelper(requireContext()).apply{
+            binding.username.text=user.name
+            binding.contact.text = user.phoneNumber
+            binding.userid.text=user.id.toString()
+//            binding.qrCode.setImageBitmap(dbHelper?.getQRCode(user.id.toString()))
+        }
 
         var qrCode: Bitmap? = dbHelper?.getQRCode(merchantId)
         if (qrCode == null) {
