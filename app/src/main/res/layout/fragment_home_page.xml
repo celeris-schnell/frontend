@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:background="@color/primary"
         android:orientation="vertical"
-        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,7 +22,14 @@
             android:layout_height="wrap_content"
             android:text="Hi user"
             android:textColor="#071C4B"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:padding="8dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black">
+
+        </View>
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -38,8 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
-            android:background="@color/primary"
-            android:paddingHorizontal="14dp"
+            android:background="@drawable/rounded_container"
+            android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,34 +84,37 @@
 
             </TextView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="16dp"
-                android:background="@color/white"
+                app:backgroundTint="@color/white"
                 android:text="Add Money"
-                android:textColor="@color/text_primary"
                 android:textSize="16sp"
+                android:textColor="@color/primary"
                 android:textStyle="bold"
+                app:cornerRadius="22dp"
+                app:strokeColor="#000000"
+                app:strokeWidth="1dp"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-            </Button>
+            </com.google.android.material.button.MaterialButton>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="22dp"
             android:text="Quick Actions"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.123"
@@ -117,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -132,14 +141,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ICON"
-                        android:textColor="@color/text_primary"
-                        android:padding="14dp"
-                        android:background="@color/secondary"/>
+                        android:padding="16dp"
+                        app:cornerRadius="12dp"
+                        app:strokeColor="#000000"
+                        app:strokeWidth="1dp"
+                        android:backgroundTint="#EAF1FE"
+                        app:icon="@drawable/ic_send"
+                        app:iconSize="30dp"
+                        app:iconGravity="textTop"
+                        app:iconPadding="0dp"
+                        app:iconTint="#000000">
+
+                    </com.google.android.material.button.MaterialButton>
 
                     <TextView
                         android:id="@+id/textView5"
@@ -154,23 +171,29 @@
                     </TextView>
                 </LinearLayout>
                 <View
-                    android:layout_width="16dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/button3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ICON"
-                        android:textColor="@color/text_primary"
-                        android:padding="14dp"
-                        android:background="@color/secondary">
+                        android:padding="16dp"
+                        app:cornerRadius="12dp"
+                        app:strokeColor="#000000"
+                        app:strokeWidth="1dp"
+                        android:backgroundTint="#EAF1FE"
+                        app:icon="@drawable/ic_qr_code"
+                        app:iconSize="30dp"
+                        app:iconGravity="textTop"
+                        app:iconPadding="0dp"
+                        app:iconTint="#000000">
 
-                    </Button>
+                    </com.google.android.material.button.MaterialButton>
 
                     <TextView
                         android:layout_width="wrap_content"

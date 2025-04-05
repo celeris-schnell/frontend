@@ -27,6 +27,10 @@ class HomePage : Fragment() {
             findNavController().navigate(R.id.action_homePage_to_sendMoney)
         }
 
+        binding.button3.setOnClickListener {
+            findNavController().navigate(R.id.action_homePage_to_scanPayFragment)
+        }
+
         return binding.root
     }
 }

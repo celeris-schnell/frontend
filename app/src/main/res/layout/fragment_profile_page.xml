@@ -12,17 +12,24 @@
         android:layout_height="wrap_content"
         android:background="@color/primary"
         android:orientation="vertical"
-        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings"
+            android:text="Profile"
             android:textColor="#071C4B"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:padding="8dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black">
+
+        </View>
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -46,9 +53,13 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher_background">
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="16dp"
+                    android:background="@drawable/circular_background"
+                    android:src="@drawable/ic_person"
+                    android:scaleType="fitCenter"
+                    >
 
                 </ImageView>
             </LinearLayout>
@@ -61,7 +72,7 @@
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:textAlignment="center"
                     android:text="User Name"
                     android:textColor="@color/text_primary"
                     android:textSize="22dp"
@@ -73,7 +84,7 @@
                     android:id="@+id/contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="4dp"
                     android:textColor="@color/text_primary"
                     android:textSize="16dp">
 
@@ -82,7 +93,7 @@
                     android:id="@+id/userid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="4dp"
 
                     android:textColor="@color/text_primary"
                     android:textSize="16dp">
@@ -128,10 +139,22 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </View>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -140,16 +163,17 @@
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:paddingVertical="16dp"
+            android:text="Logout"
+            android:textColor="#C23A22"
+            android:textSize="22sp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp"
+            app:backgroundTint="#fde0e0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:backgroundTint="#fde0e0"
-            android:layout_marginHorizontal="20dp"
-            android:paddingVertical="8dp"
-            android:text="LOGOUT"
-            android:textSize="22sp"
-            android:textColor="#C23A22"/>
-
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
