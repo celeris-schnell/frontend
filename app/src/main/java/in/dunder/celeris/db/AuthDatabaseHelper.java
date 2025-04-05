@@ -78,4 +78,12 @@ public class AuthDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return user;
     }
+
+
+    public void logoutUser() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM users");
+        db.close();
+    }
+
 }
