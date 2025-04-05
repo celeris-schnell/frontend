@@ -38,6 +38,17 @@ public class SMSReceiver extends BroadcastReceiver {
     }
 
     private void processSMS(Context context, String sender, String message) {
+        String[] messages = message.split("\\|");
+        int amount = Integer.parseInt(messages[0]);
+        String status = messages[1];
+        String type = messages[2];
+
+        if (status == "successful" || status == "failed") {
+            // Handle successful or failed status
+        } else if (status == "pending") {
+            // Handle pending status
+        }
+
         Toast.makeText(context, "New SMS from: " + sender + message, Toast.LENGTH_SHORT).show();
     }
 }
