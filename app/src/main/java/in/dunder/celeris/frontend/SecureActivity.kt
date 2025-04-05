@@ -14,6 +14,7 @@ import `in`.dunder.celeris.utils.NetworkMonitor
 import androidx.navigation.NavController
 import android.view.View
 import android.graphics.Color
+import android.view.WindowManager
 
 class SecureActivity : AppCompatActivity() {
     private lateinit var networkMonitor: NetworkMonitor
@@ -23,6 +24,11 @@ class SecureActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        // Remove status bar
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
         binding = ActivitySecureBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,7 +44,6 @@ class SecureActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        // Setup bottom navigation clicks
         binding.homeButton.setOnClickListener {
             if (navController.currentDestination?.id != R.id.homePage) {
                 navController.navigate(R.id.homePage)

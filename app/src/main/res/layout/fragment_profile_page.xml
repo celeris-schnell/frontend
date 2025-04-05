@@ -21,9 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Profile"
-            android:textColor="#071C4B"
+            android:textColor="@color/text_primary"
             android:textSize="24sp"
-            android:padding="8dp"/>
+            android:layout_margin="12dp"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -167,7 +167,7 @@
             android:paddingVertical="16dp"
             android:text="Logout"
             android:textColor="#C23A22"
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp"
             app:backgroundTint="#fde0e0"
