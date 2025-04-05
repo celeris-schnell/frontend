@@ -1,59 +1,98 @@
 package `in`.dunder.celeris.frontend
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import `in`.dunder.celeris.db.AuthDatabaseHelper
+import `in`.dunder.celeris.frontend.databinding.FragmentSignUpBinding
+import `in`.dunder.celeris.utils.RetrofitClient
+import retrofit2.Call
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+data class SignupRequest(
+    val email: String,
+    val password: String,
+    val name: String,
+    val phoneNumber: String
+)
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SignUp.newInstance] factory method to
- * create an instance of this fragment.
- */
+data class SignupResponse(
+    val message: String,
+    val user_id: Int
+)
+
 class SignUp : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentSignUpBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
-    }
+    ): View {
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignUp.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignUp().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        binding.signup.setOnClickListener {
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
+            val name = binding.name.text.toString()
+            val phoneNumber = binding.phoneNumber.text.toString()
+
+            if (email.isEmpty() || password.isEmpty() || name.isEmpty() || phoneNumber.isEmpty()) {
+                Toast.makeText(context, "All fields are required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            binding.signup.isEnabled = false
+
+            val signupRequest = SignupRequest(email, password, name, phoneNumber)
+
+            RetrofitClient.instance.signup(signupRequest).enqueue(object : retrofit2.Callback<SignupResponse> {
+                override fun onResponse(call: Call<SignupResponse>, response: Response<SignupResponse>) {
+                    binding.signup.isEnabled = true
+
+                    if (response.isSuccessful) {
+                        val res = response.body()
+                        val context = requireContext()
+
+                        if (res != null) {
+                            val dbHelper = AuthDatabaseHelper(context)
+                            dbHelper.insertUser(
+                                res.user_id,
+                                binding.name.text.toString(),
+                                0,
+                                binding.email.text.toString(),
+                                binding.phoneNumber.text.toString()
+                            )
+
+                            val intent = Intent(requireContext(), SecureActivity::class.java)
+                            startActivity(intent)
+                            requireActivity().finish()
+                        }
+                    } else {
+                        Toast.makeText(context, "Signup failed: ${response.code()}", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+
+                override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
+                    binding.signup.isEnabled = true
+                    Toast.makeText(context, "Network error: ${t.message}", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
+
+        binding.signInText.setOnClickListener {
+            val loginFragment = Login()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.auth_main, loginFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        return binding.root
     }
 }
