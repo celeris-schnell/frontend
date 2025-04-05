@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homePage">
+
+    <fragment
+        android:id="@+id/homePage"
+        android:name="in.dunder.celeris.frontend.HomePage"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePage_to_profilePage"
+            app:destination="@id/profilePage" />
+        <action
+            android:id="@+id/action_homePage_to_sendMoney"
+            app:destination="@id/sendMoney" />
+    </fragment>
+    <fragment
+        android:id="@+id/profilePage"
+        android:name="in.dunder.celeris.frontend.ProfilePage"
+        android:label="fragment_profile_page"
+        tools:layout="@layout/fragment_profile_page" />
+    <fragment
+        android:id="@+id/sendMoney"
+        android:name="in.dunder.celeris.frontend.SendMoney"
+        android:label="fragment_send_money"
+        tools:layout="@layout/fragment_send_money" />
+</navigation>
