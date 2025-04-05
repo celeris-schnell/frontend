@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.fragment.NavHostFragment
 import `in`.dunder.celeris.db.AuthDatabaseHelper
 import `in`.dunder.celeris.frontend.databinding.ActivitySecureBinding
 import `in`.dunder.celeris.utils.NetworkMonitor
@@ -27,9 +28,9 @@ class SecureActivity : AppCompatActivity() {
             insets
         }
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main, HomePage())
-            .commit()
+        // Set up Navigation
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         AuthDatabaseHelper(this).apply {
             if (!isUserLoggedIn()) {
