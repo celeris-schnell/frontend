@@ -2,6 +2,7 @@ package `in`.dunder.celeris.frontend
 
 import android.content.Context
 import android.os.Bundle
+import android.telephony.SmsManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,24 +28,16 @@ class SendMoney : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSendMoneyBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val idInputField = view.findViewById<EditText>(R.id.input_id)
-
-        lifecycleScope.launch {
-            val clientId = getClientIdFromDataStore()
-            idInputField.setText(clientId)
-        }
+    ): View? {
+        binding = FragmentSendMoneyBinding.inflate(layoutInflater, container, false)
+        val smsManager = requireContext().getSystemService(SmsManager::class.java)
 
         AuthDatabaseHelper(requireContext()).apply {
-            Toast.makeText(requireContext(), user.id.toString(), Toast.LENGTH_LONG).show()
-            binding.balance.text = user.balance.toString()
+            binding.pay.setOnClickListener {
+                val msg = user.id.toString() + "|" + binding.merchantid.text.toString() + "|" + binding.amount.text.toString()
+
+                smsManager.sendTextMessage("+917050610065",null,msg,null,null)
+            }
         }
     }
 
