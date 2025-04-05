@@ -27,11 +27,9 @@ class SecureActivity : AppCompatActivity() {
             insets
         }
 
-        if (savedInstanceState != null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_view, HomePage())
-                .commit()
-        }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main, HomePage())
+            .commit()
 
         AuthDatabaseHelper(this).apply {
             if (!isUserLoggedIn()) {

@@ -16,7 +16,7 @@ class NetworkMonitor(
         override fun onAvailable(network: Network) {
             val isOnline = isCurrentlyOnline()
             if (!wasOnline && isOnline) {
-                onNetworkChange(true, true) // just came online
+                onNetworkChange(true, true)
             } else {
                 onNetworkChange(true, false)
             }
