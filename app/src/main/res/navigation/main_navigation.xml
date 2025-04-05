@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homePage_to_sendMoney"
             app:destination="@id/sendMoney" />
+        <action
+            android:id="@+id/action_homePage_to_scanPayFragment"
+            app:destination="@id/scanPayFragment" />
     </fragment>
     <fragment
         android:id="@+id/profilePage"
@@ -26,5 +29,17 @@
         android:id="@+id/sendMoney"
         android:name="in.dunder.celeris.frontend.SendMoney"
         android:label="fragment_send_money"
-        tools:layout="@layout/fragment_send_money" />
+        tools:layout="@layout/fragment_send_money">
+        <action
+            android:id="@+id/action_scanPayFragment_to_sendMoney"
+            app:destination="@id/sendMoney" />
+    </fragment>
+    <fragment
+        android:id="@+id/scanPayFragment"
+        android:name="in.dunder.celeris.frontend.ScanPayFragment"
+        android:label="ScanPayFragment" >
+        <action
+            android:id="@+id/action_scanPayFragment_to_sendMoney"
+            app:destination="@id/sendMoney" />
+    </fragment>
 </navigation>
