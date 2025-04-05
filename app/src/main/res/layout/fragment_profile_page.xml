@@ -58,6 +58,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -69,19 +70,20 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="+91 90335 68976"
                     android:textColor="@color/text_primary"
                     android:textSize="16dp">
 
                 </TextView>
                 <TextView
+                    android:id="@+id/userid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="userName@okaxis"
+
                     android:textColor="@color/text_primary"
                     android:textSize="16dp">
 
@@ -124,20 +126,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Download QR code"
-            android:textColor="@color/text_primary"
-            android:textSize="22sp"
-            app:backgroundTint="@color/primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qr_code"
-            android:layout_marginTop="20dp">
 
-        </com.google.android.material.button.MaterialButton>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
