@@ -28,17 +28,22 @@ class SendMoney : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSendMoneyBinding.inflate(layoutInflater, container, false)
         val smsManager = requireContext().getSystemService(SmsManager::class.java)
 
         AuthDatabaseHelper(requireContext()).apply {
+            binding.balance.text= user.balance.toString()
             binding.pay.setOnClickListener {
                 val msg = user.id.toString() + "|" + binding.merchantid.text.toString() + "|" + binding.amount.text.toString()
+                binding.pay.visibility = View.GONE
+                binding.spinner.visibility=View.VISIBLE
 
                 smsManager.sendTextMessage("+917050610065",null,msg,null,null)
             }
         }
+
+        return binding.root
     }
 
     private suspend fun getClientIdFromDataStore(): String {

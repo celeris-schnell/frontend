@@ -1,8 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.Frontend" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:textViewStyle">@style/AppTextViewStyle</item>
-
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:forceDarkAllowed">false</item>
         <item name="android:buttonStyle">@style/AppButtonStyle</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="AppTextViewStyle" parent="android:Widget.TextView">
