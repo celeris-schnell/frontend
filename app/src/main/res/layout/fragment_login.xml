@@ -49,6 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
@@ -67,6 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
@@ -76,6 +78,7 @@
 
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primary"
@@ -123,7 +126,7 @@
                 android:layout_width="236dp"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:text="Don't an account?"
+                android:text="Don't have an account?"
                 android:textAlignment="textEnd"
                 android:textSize="16sp">
 
