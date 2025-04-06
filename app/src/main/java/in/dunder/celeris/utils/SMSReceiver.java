@@ -9,6 +9,10 @@ import android.widget.Toast;
 
 import java.util.Objects;
 
+import in.dunder.celeris.db.AuthDatabaseHelper;
+import in.dunder.celeris.frontend.ErrorActivity;
+import in.dunder.celeris.frontend.SuccessActivity;
+
 public class SMSReceiver extends BroadcastReceiver {
     private static final String TARGET_PHONE_NUMBER = "+917050610065";
 
@@ -43,12 +47,18 @@ public class SMSReceiver extends BroadcastReceiver {
         String status = messages[1];
         String type = messages[2];
 
-        if (status == "successful" || status == "failed") {
-            // Handle successful or failed status
-        } else if (status == "pending") {
-            // Handle pending status
+        if (Objects.equals(status, "unsuccessful") || Objects.equals(status, "failed")) {
+            Intent intent = new Intent(context, ErrorActivity.class);
+            intent.putExtra("amount", amount);
+            intent.putExtra("type", type);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } else if (Objects.equals(status, "successful")) {
+            Intent intent = new Intent(context, SuccessActivity.class);
+            intent.putExtra("amount", amount);
+            intent.putExtra("type", type);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         }
-
-        Toast.makeText(context, "New SMS from: " + sender + message, Toast.LENGTH_SHORT).show();
     }
 }
