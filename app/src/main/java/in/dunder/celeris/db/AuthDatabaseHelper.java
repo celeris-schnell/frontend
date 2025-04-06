@@ -79,6 +79,12 @@ public class AuthDatabaseHelper extends SQLiteOpenHelper {
         return user;
     }
 
+    public void setBalance(int balance) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE users SET balance = ?", new Object[]{balance});
+        db.close();
+    }
+
 
     public void logoutUser() {
         SQLiteDatabase db = this.getWritableDatabase();

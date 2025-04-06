@@ -26,15 +26,13 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.google.zxing.BinaryBitmap
 import com.google.zxing.MultiFormatReader
 import com.google.zxing.Result
 import com.google.zxing.common.HybridBinarizer
 import com.google.zxing.PlanarYUVLuminanceSource
+import `in`.dunder.celeris.utils.dataStore
 import kotlinx.coroutines.launch
-
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "app_preferences")
 
 // Extension function to convert ImageProxy to ZXing's PlanarYUVLuminanceSource.
 private fun ImageProxy.toLuminanceSource(): PlanarYUVLuminanceSource? {

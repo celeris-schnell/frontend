@@ -18,7 +18,6 @@ class ProfilePage : Fragment() {
     private var dbHelper: DatabaseHelper? = null
     private var authDbHelper: AuthDatabaseHelper? = null // Added AuthDatabaseHelper
     private var qrCodeImageView: ImageView? = null
-    private val merchantId = "13"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +34,10 @@ class ProfilePage : Fragment() {
 //            binding.qrCode.setImageBitmap(dbHelper?.getQRCode(user.id.toString()))
         }
 
-        var qrCode: Bitmap? = dbHelper?.getQRCode(merchantId)
+        var qrCode: Bitmap? = dbHelper?.getQRCode(binding.userid.text.toString())
         if (qrCode == null) {
-            qrCode = QRCodeUtils.generateQRCode(merchantId)
-            dbHelper?.saveQRCode(merchantId, qrCode)
+            qrCode = QRCodeUtils.generateQRCode(binding.userid.text.toString())
+            dbHelper?.saveQRCode(binding.userid.text.toString(), qrCode)
         }
 
         qrCodeImageView?.setImageBitmap(qrCode)

@@ -7,39 +7,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import `in`.dunder.celeris.db.AuthDatabaseHelper
-import `in`.dunder.celeris.db.DatabaseHelper
-import `in`.dunder.celeris.frontend.databinding.FragmentProfilePageBinding
 import `in`.dunder.celeris.frontend.databinding.FragmentSendMoneyBinding
+import `in`.dunder.celeris.utils.dataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class SendMoney : Fragment() {
     private lateinit var binding: FragmentSendMoneyBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentSendMoneyBinding.inflate(layoutInflater, container, false)
         val smsManager = requireContext().getSystemService(SmsManager::class.java)
 
+        lifecycleScope.launch {
+            val clientId = getClientIdFromDataStore()
+            binding.merchantid.setText(clientId)
+        }
+
         AuthDatabaseHelper(requireContext()).apply {
-            binding.balance.text= user.balance.toString()
+            binding.balance.text = user.balance.toString()
+
             binding.pay.setOnClickListener {
                 val msg = user.id.toString() + "|" + binding.merchantid.text.toString() + "|" + binding.amount.text.toString()
-                binding.pay.visibility = View.GONE
-                binding.spinner.visibility=View.VISIBLE
-
-                smsManager.sendTextMessage("+917050610065",null,msg,null,null)
+                smsManager.sendTextMessage("+917050610065", null, msg, null, null)
             }
         }
 
